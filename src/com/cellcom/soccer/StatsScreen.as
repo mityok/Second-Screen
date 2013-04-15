@@ -13,6 +13,7 @@
 	import flash.events.IOErrorEvent;
 	import flash.display.LoaderInfo;
 	import flash.text.engine.FontWeight;
+	import com.cellcom.global.GlobalConst;
 
 	public class StatsScreen extends ViewDisplayObject {
 		public static const STATS_ONE_GOAL:String = "STATS_ONE_GOAL";
@@ -333,7 +334,7 @@
 			//;
 			loader.unloadAndStop(true);
 			loader.alpha = 0;
-			loader.load(new URLRequest(UiConst.IMAGES_LINK+data.playerimg));
+			loader.load(new URLRequest(GlobalConst.IMAGES_LINK+data.playerimg));
 			//;
 			birthField.text = data.playerbirthdate;
 			var dates:Array = birthField.text.split("/");
@@ -347,7 +348,7 @@
 			for (var i:int=0; i<flags.length; i++) {
 				flags[i].flagCont.removeChildren();
 				var flagLoader:Loader = new Loader();
-				flagLoader.load(new URLRequest(UiConst.IMAGES_LINK + data.countryflag));
+				flagLoader.load(new URLRequest(GlobalConst.IMAGES_LINK + data.countryflag));
 				flags[i].flagCont.addChild(flagLoader);
 				flagLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,function(e:Event){
 				  LoaderInfo(e.target).loader.width=110;
@@ -366,19 +367,19 @@
 		private function drawBackground() {
 			this.graphics.lineStyle(1,0xffffff);
 			this.graphics.moveTo(0,0);
-			this.graphics.lineTo(UiConst.WIN_WIDTH,0);
+			this.graphics.lineTo(SoccerUiConst.WIN_WIDTH,0);
 
-			this.graphics.moveTo(0,UiConst.WIN_HEIGHT);
-			this.graphics.lineTo(UiConst.WIN_WIDTH,UiConst.WIN_HEIGHT);
+			this.graphics.moveTo(0,SoccerUiConst.WIN_HEIGHT);
+			this.graphics.lineTo(SoccerUiConst.WIN_WIDTH,SoccerUiConst.WIN_HEIGHT);
 
-			this.graphics.moveTo(0,UiConst.WIN_HEIGHT);
-			this.graphics.lineTo(UiConst.WIN_WIDTH,UiConst.WIN_HEIGHT);
+			this.graphics.moveTo(0,SoccerUiConst.WIN_HEIGHT);
+			this.graphics.lineTo(SoccerUiConst.WIN_WIDTH,SoccerUiConst.WIN_HEIGHT);
 
-			this.graphics.moveTo(0,UiConst.WIN_FRAME);
-			this.graphics.lineTo(0,UiConst.WIN_HEIGHT-UiConst.WIN_FRAME);
+			this.graphics.moveTo(0,SoccerUiConst.WIN_FRAME);
+			this.graphics.lineTo(0,SoccerUiConst.WIN_HEIGHT-SoccerUiConst.WIN_FRAME);
 
-			this.graphics.moveTo(UiConst.WIN_WIDTH,UiConst.WIN_FRAME);
-			this.graphics.lineTo(UiConst.WIN_WIDTH,UiConst.WIN_HEIGHT-UiConst.WIN_FRAME);
+			this.graphics.moveTo(SoccerUiConst.WIN_WIDTH,SoccerUiConst.WIN_FRAME);
+			this.graphics.lineTo(SoccerUiConst.WIN_WIDTH,SoccerUiConst.WIN_HEIGHT-SoccerUiConst.WIN_FRAME);
 		}
 
 	}

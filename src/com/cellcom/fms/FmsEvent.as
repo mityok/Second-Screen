@@ -1,4 +1,4 @@
-﻿package com.cellcom.soccer{
+﻿package com.cellcom.fms{
 	import flash.events.Event;
 
 	public class FmsEvent extends Event {

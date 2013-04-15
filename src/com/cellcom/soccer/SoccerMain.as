@@ -14,12 +14,15 @@
 	import flash.utils.setTimeout;
 	import com.cellcom.debug.Stats;
 	import flash.desktop.*;
+	import com.cellcom.fms.FmsEvent;
+	import com.cellcom.fms.FmsConnection;
+	import com.cellcom.global.GlobalConst;
 
 
 	public class SoccerMain extends Sprite implements IsFullScreenLaunchCapable {
 		private var fms:FmsConnection;
 		private var bg:Background=new Background();
-		private var windowArray:Vector.<WindowContainer >  = new Vector.<WindowContainer > (UiConst.WIN_AMOUNT,true);
+		private var windowArray:Vector.<WindowContainer >  = new Vector.<WindowContainer > (SoccerUiConst.WIN_AMOUNT,true);
 		private var galleryScreen:GalleryScreen;
 		private var statsScreen:StatsScreen;
 		private var windowHolder:Sprite=new Sprite();
@@ -43,17 +46,17 @@
 			fms.addEventListener(FmsEvent.DATA_RECEIVED,onFmsDataReceived);
 			fms.addEventListener(FmsEvent.DATA_FAIL,onFmsDataFail);
 			fms.addEventListener(FmsEvent.CONNECTION_ESTABLISHED,onFmsConnectionEstablished);
-			windowHolder.x = UiConst.MAIN_WIDTH / 2;
-			windowHolder.y = 100+(UiConst.MAIN_HEIGHT / 2);
-			totalWindowWidth=UiConst.WIN_WIDTH*UiConst.WIN_AMOUNT+UiConst.WIN_SPACING*(UiConst.WIN_AMOUNT-1);
+			windowHolder.x = GlobalConst.MAIN_WIDTH / 2;
+			windowHolder.y = 100+(GlobalConst.MAIN_HEIGHT / 2);
+			totalWindowWidth=SoccerUiConst.WIN_WIDTH*SoccerUiConst.WIN_AMOUNT+SoccerUiConst.WIN_SPACING*(SoccerUiConst.WIN_AMOUNT-1);
 			galleryScreen=new GalleryScreen();
 			statsScreen=new StatsScreen();
 			videoScreen=new VideoScreen();
 			fullScreenView=new FullScreenView();
-			for (var i:int=0; i<UiConst.WIN_AMOUNT; i++) {
+			for (var i:int=0; i<SoccerUiConst.WIN_AMOUNT; i++) {
 				var windCont:WindowContainer=new WindowContainer();
 				windowArray[i] = windCont;
-				windCont.x = UiConst.WIN_WIDTH/2+((UiConst.WIN_WIDTH + UiConst.WIN_SPACING)*i)-(totalWindowWidth/2);
+				windCont.x = SoccerUiConst.WIN_WIDTH/2+((SoccerUiConst.WIN_WIDTH + SoccerUiConst.WIN_SPACING)*i)-(totalWindowWidth/2);
 				windowHolder.addChild(windCont);
 			}
 			windowSelected = 1;
@@ -61,8 +64,8 @@
 			addToWindow(windowArray[1],statsScreen);
 			addToWindow(windowArray[0],videoScreen);
 			this.addChild(pageIndicator);
-			pageIndicator.x = UiConst.MAIN_WIDTH / 2 - pageIndicator.getWidth() / 2;
-			pageIndicator.y = UiConst.MAIN_HEIGHT - 70;
+			pageIndicator.x = GlobalConst.MAIN_WIDTH / 2 - pageIndicator.getWidth() / 2;
+			pageIndicator.y = GlobalConst.MAIN_HEIGHT - 70;
 			pageIndicator.setCurrentPage(windowSelected);
 			pageIndicator.addEventListener(SelectedPageEvent.SELECTED_PAGE_EVENT,onPageSelected);
 			this.addChild(fullScreenView);
@@ -75,8 +78,8 @@
 		}
 		private function addToWindow(win:DisplayObjectContainer,screen:ViewDisplayObject):void {
 			win.addChild(screen);
-			screen.x =  -  UiConst.WIN_WIDTH / 2;
-			screen.y =  -  UiConst.WIN_HEIGHT / 2;
+			screen.x =  -  SoccerUiConst.WIN_WIDTH / 2;
+			screen.y =  -  SoccerUiConst.WIN_HEIGHT / 2;
 			screen.setView(this);
 		}
 		private function addMainStageListeners():void {
@@ -146,10 +149,10 @@
 		}
 		private function motionX(dx:Number):void {
 			windowHolder.x = dx + initialPosition.x;
-			if (windowHolder.x > totalWindowWidth / 2 + UiConst.MAIN_WIDTH / 2) {
-				windowHolder.x = totalWindowWidth / 2 + UiConst.MAIN_WIDTH / 2;
-			} else if (windowHolder.x<-totalWindowWidth/2+UiConst.MAIN_WIDTH/2) {
-				windowHolder.x =  -  totalWindowWidth / 2 + UiConst.MAIN_WIDTH / 2;
+			if (windowHolder.x > totalWindowWidth / 2 + GlobalConst.MAIN_WIDTH / 2) {
+				windowHolder.x = totalWindowWidth / 2 + GlobalConst.MAIN_WIDTH / 2;
+			} else if (windowHolder.x<-totalWindowWidth/2+GlobalConst.MAIN_WIDTH/2) {
+				windowHolder.x =  -  totalWindowWidth / 2 + GlobalConst.MAIN_WIDTH / 2;
 			}
 		}
 		private function motionDirection(dx:Number,dy:Number):Point {
@@ -175,15 +178,15 @@
 			this.pageIndicator.setCurrentPage(winSelected);
 		}
 		private function getWinInFocus():int {
-			return Math.floor(UiConst.WIN_AMOUNT/2-((windowHolder.x-UiConst.MAIN_WIDTH/2)/(UiConst.WIN_WIDTH+UiConst.WIN_SPACING)));
+			return Math.floor(SoccerUiConst.WIN_AMOUNT/2-((windowHolder.x-GlobalConst.MAIN_WIDTH/2)/(SoccerUiConst.WIN_WIDTH+SoccerUiConst.WIN_SPACING)));
 		}
 		private function detectWindowFocus():void {
 			windowSelected = getWinInFocus();
 			tweenToWindow(windowSelected);
 		}
 		private function tweenToWindow(win:int):void {
-			var windowSelectedPos:int = UiConst.WIN_WIDTH/2+((UiConst.WIN_WIDTH + UiConst.WIN_SPACING)*win)-(totalWindowWidth/2);
-			var winHolderPos:int = UiConst.MAIN_WIDTH / 2 - windowSelectedPos;
+			var windowSelectedPos:int = SoccerUiConst.WIN_WIDTH/2+((SoccerUiConst.WIN_WIDTH + SoccerUiConst.WIN_SPACING)*win)-(totalWindowWidth/2);
+			var winHolderPos:int = GlobalConst.MAIN_WIDTH / 2 - windowSelectedPos;
 			TweenLite.to(windowHolder,1,{x:winHolderPos,ease:Back.easeOut,onComplete:onWindowFocusDone});
 
 		}

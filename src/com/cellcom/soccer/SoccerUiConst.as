@@ -1,8 +1,6 @@
 ﻿package com.cellcom.soccer{
 
-	public class UiConst {
-		public static const MAIN_WIDTH:int = 2048;
-		public static const MAIN_HEIGHT:int = 1536;
+	public class SoccerUiConst {
 		public static const WIN_WIDTH:int = 1600;
 		public static const WIN_HEIGHT:int = 1080;
 		public static const WIN_SPACING:int = 100;
@@ -17,8 +15,5 @@
 		public static const GALLERY_COLUMNS:int = 3;
 		public static const GALLERY_ROWS:int = 3;
 		public static const GALLERY_SPACING:int = 20;
-		public static const IMAGES_LINK:String = "http://54.225.188.163/UserImages/";
-
-
 	}
 }

@@ -11,7 +11,7 @@
 		public function VideoScreen() {
 			
 			this.graphics.beginFill(0,1);
-			this.graphics.drawRect(0,0,UiConst.WIN_WIDTH,UiConst.WIN_HEIGHT);
+			this.graphics.drawRect(0,0,SoccerUiConst.WIN_WIDTH,SoccerUiConst.WIN_HEIGHT);
 			this.graphics.endFill();
 			videoPlayer = new SimpleVideoPlayer(1280,720);
 			var cont:Sprite=new Sprite();
@@ -19,7 +19,7 @@
 			cont.addChild(videoPlayer.getVideo());
 			var msk:Shape=new Shape();
 			msk.graphics.beginFill(0,1);
-			msk.graphics.drawRect(0,0,UiConst.WIN_WIDTH,UiConst.WIN_HEIGHT);
+			msk.graphics.drawRect(0,0,SoccerUiConst.WIN_WIDTH,SoccerUiConst.WIN_HEIGHT);
 			msk.graphics.endFill();
 			this.addChild(msk);
 			//cont.width = 1800;
@@ -38,7 +38,7 @@ videoPlayer.setText(txt);
 			txt.background=true;
 			txt.border=true;
 			this.addChild(txt);
-			controlls.y = UiConst.WIN_HEIGHT - 80;
+			controlls.y = SoccerUiConst.WIN_HEIGHT - 80;
 		}
 		public function pause() {
 			videoPlayer.pause();

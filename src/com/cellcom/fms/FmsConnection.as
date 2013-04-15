@@ -1,4 +1,4 @@
-﻿package com.cellcom.soccer{
+﻿package com.cellcom.fms{
 	import flash.display.MovieClip;
 	import flash.net.NetConnection;
 	import flash.events.NetStatusEvent;

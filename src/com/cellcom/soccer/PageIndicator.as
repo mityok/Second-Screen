@@ -9,10 +9,10 @@
 		public static const DOT_SPACING:int = 100;
 
 		private var currentPage:int = -1;
-		private var dots:Vector.<Sprite >  = new Vector.<Sprite > (UiConst.WIN_AMOUNT,true);
+		private var dots:Vector.<Sprite >  = new Vector.<Sprite > (SoccerUiConst.WIN_AMOUNT,true);
 		public function PageIndicator() {
 
-			for (var i:int=0; i<UiConst.WIN_AMOUNT; i++) {
+			for (var i:int=0; i<SoccerUiConst.WIN_AMOUNT; i++) {
 				dots[i] = createIndicatorDot();
 				dots[i].x = i * DOT_SPACING;
 			}
@@ -22,7 +22,7 @@
 				return;
 			}
 			currentPage = page;
-			for (var i:int=0; i<UiConst.WIN_AMOUNT; i++) {
+			for (var i:int=0; i<SoccerUiConst.WIN_AMOUNT; i++) {
 				var dot:Sprite = dots[i];
 				if (i==page) {
 					TweenLite.to(dot,0.3,{alpha:1,scaleX:1,scaleY:1});

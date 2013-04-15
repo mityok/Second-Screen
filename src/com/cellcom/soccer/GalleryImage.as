@@ -9,14 +9,15 @@
 	import flash.events.ErrorEvent;
 	import flash.display.Bitmap;
 	import flash.events.IOErrorEvent;
+	import com.cellcom.global.GlobalConst;
 
 	public class GalleryImage extends Sprite {
-		public static const IMG_WIDTH:Number=(UiConst.WIN_WIDTH-(UiConst.GALLERY_SPACING*(UiConst.GALLERY_COLUMNS-1)))/(UiConst.GALLERY_COLUMNS);
-		public static const IMG_HEIGHT:Number=(UiConst.WIN_HEIGHT-(UiConst.GALLERY_SPACING*(UiConst.GALLERY_ROWS-1)))/(UiConst.GALLERY_ROWS);
+		public static const IMG_WIDTH:Number=(SoccerUiConst.WIN_WIDTH-(SoccerUiConst.GALLERY_SPACING*(SoccerUiConst.GALLERY_COLUMNS-1)))/(SoccerUiConst.GALLERY_COLUMNS);
+		public static const IMG_HEIGHT:Number=(SoccerUiConst.WIN_HEIGHT-(SoccerUiConst.GALLERY_SPACING*(SoccerUiConst.GALLERY_ROWS-1)))/(SoccerUiConst.GALLERY_ROWS);
 		private var loader:Loader;
 		private var _data:Object;
 		public function GalleryImage() {
-			this.graphics.beginFill(UiConst.BG_MED_GREEN);
+			this.graphics.beginFill(SoccerUiConst.BG_MED_GREEN);
 			this.graphics.drawRect(0,0,IMG_WIDTH,IMG_HEIGHT);
 			this.graphics.endFill();
 			loader=new Loader();
@@ -33,7 +34,7 @@
 			if(data.image== null || data.image=="" || data.image==undefined){
 				return;
 			}
-			loader.load(new URLRequest(UiConst.IMAGES_LINK+data.image));
+			loader.load(new URLRequest(GlobalConst.IMAGES_LINK+data.image));
 		}
 		private function onLoadDone(e:Event):void {
 			loader.contentLoaderInfo.removeEventListener(Event.COMPLETE,onLoadDone);
