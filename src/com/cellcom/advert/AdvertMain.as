@@ -19,25 +19,60 @@
 		var deltaMotion:Number;
 		var openButtonMc:MovieClip
 		var closeButtonMc:MovieClip
-		
+		var hotspotLink:Shape=new Shape();
 		var deviceController:DeviceController;
+		var linkConnectorMc:MovieClip;
+		var hotSpotContainerMc:MovieClip;
 		public function AdvertMain() {
 			formContainerMc = formContainer;
 			openButtonMc=formContainerMc.openButton;
 			closeButtonMc=formContainerMc.closeButton;
-			
-			deviceController=new DeviceController(deviceContainer);
+			linkConnectorMc=linkConnector;
+			hotSpotContainerMc=hotSpotContainer;
+			deviceController=new DeviceController(deviceContainer,notify,startMotion);
+																							
 			stage.scaleMode = StageScaleMode.EXACT_FIT;
 			stage.align = StageAlign.TOP_LEFT;
 			NativeApplication.nativeApplication.systemIdleMode = SystemIdleMode.KEEP_AWAKE;
 			
 			
-			hotSpotContainer.rotationY = -30;
 			deviceController.setDevice(deviceXperia);
 			formContainerMc.x = GlobalConst.MAIN_WIDTH;
 			addFormEvents();
 			isClosed(true);
 		}
+		private function  startMotion():void {
+			clearHotSpot();
+		}
+		private function  notify(x:int,y:int,count:int):void {
+			trace(x,y,count);
+		
+			clearHotSpot();
+			
+			var spot:MovieClip=new HotspotScreenGalaxy();
+			var dir:int=0;
+			if(x>GlobalConst.MAIN_WIDTH/2){
+				spot.x=0;
+				hotSpotContainerMc.x=GlobalConst.MAIN_WIDTH-AdvertConst.HOTSPOTS_CONTAINER_OFFSET-AdvertConst.HOTSPOTS_WIDTH;
+				
+				dir=1;
+			}else{
+				spot.x=-AdvertConst.HOTSPOTS_WIDTH;
+				hotSpotContainerMc.x=AdvertConst.HOTSPOTS_CONTAINER_OFFSET+AdvertConst.HOTSPOTS_WIDTH;
+				dir=-1
+			}
+			hotSpotContainerMc.rotationY = dir*45;
+			hotSpotContainerMc.addChild(spot);
+			linkConnectorMc.graphics.lineStyle(5,0);
+			linkConnectorMc.graphics.moveTo(x,y);
+			linkConnectorMc.graphics.lineTo(hotSpotContainerMc.x-dir*AdvertConst.ICON_SIZE/2,hotSpotContainer.y+AdvertConst.ICON_SIZE/2);
+		}
+		private function  clearHotSpot():void {
+			linkConnectorMc.graphics.clear();
+			hotSpotContainerMc.removeChildren();
+			
+		}
+		
 		private function isClosed(closed:Boolean):void {
 			openButtonMc.alpha=int(closed);
 			closeButtonMc.alpha=int(!closed);
