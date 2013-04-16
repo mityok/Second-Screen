@@ -23,14 +23,17 @@
 		var deviceController:DeviceController;
 		var linkConnectorMc:MovieClip;
 		var hotSpotContainerMc:MovieClip;
+		var dotMarker:DotMarker;
 		public function AdvertMain() {
+			dotMarker=new DotMarker(GlobalConst.CELLCOM_DARK_PURPLE);
+			dotMarker.visible=false;
 			formContainerMc = formContainer;
 			openButtonMc=formContainerMc.openButton;
 			closeButtonMc=formContainerMc.closeButton;
 			linkConnectorMc=linkConnector;
 			hotSpotContainerMc=hotSpotContainer;
 			deviceController=new DeviceController(deviceContainer,notify,startMotion);
-																							
+			linkConnectorMc.addChild(dotMarker);						
 			stage.scaleMode = StageScaleMode.EXACT_FIT;
 			stage.align = StageAlign.TOP_LEFT;
 			NativeApplication.nativeApplication.systemIdleMode = SystemIdleMode.KEEP_AWAKE;
@@ -59,18 +62,21 @@
 			}else{
 				spot.x=-AdvertConst.HOTSPOTS_WIDTH;
 				hotSpotContainerMc.x=AdvertConst.HOTSPOTS_CONTAINER_OFFSET+AdvertConst.HOTSPOTS_WIDTH;
-				dir=-1
+				dir=-1;
 			}
 			hotSpotContainerMc.rotationY = dir*45;
 			hotSpotContainerMc.addChild(spot);
 			linkConnectorMc.graphics.lineStyle(5,0);
 			linkConnectorMc.graphics.moveTo(x,y);
 			linkConnectorMc.graphics.lineTo(hotSpotContainerMc.x-dir*AdvertConst.ICON_SIZE/2,hotSpotContainer.y+AdvertConst.ICON_SIZE/2);
+			dotMarker.y=hotSpotContainer.y+AdvertConst.ICON_SIZE/2;
+			dotMarker.x=hotSpotContainerMc.x-dir*AdvertConst.ICON_SIZE/2;
+			dotMarker.visible=true;
 		}
 		private function  clearHotSpot():void {
 			linkConnectorMc.graphics.clear();
 			hotSpotContainerMc.removeChildren();
-			
+			dotMarker.visible=false;
 		}
 		
 		private function isClosed(closed:Boolean):void {

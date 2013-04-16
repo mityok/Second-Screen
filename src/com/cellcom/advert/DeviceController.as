@@ -33,13 +33,17 @@
 			hotPoints.push(new Point(650,150));
 			hotPoints.push(new Point(-450,300));
 			//
-			hotPoints.push(new Point(650,890));
-			hotPoints.push(new Point(350,150));
+			hotPoints.push(new Point(690,990));
+			hotPoints.push(new Point(400,200));
 			//
 		}
 		private function onClick(e:MouseEvent){
 			if(e.target is HotspotIndicator && !inMotion){
 				var spot:HotspotIndicator=HotspotIndicator(e.target);
+				for (var i:int=0; i<hotspots.length; i++) {
+					hotspots[i].mark(false);
+				}
+				spot.mark(true);
 				notify(container.x+spot.x,container.y+spot.y,hotspots.indexOf(spot));
 			}
 		}
@@ -63,11 +67,13 @@
 		}
 		private function hideHotSpots(){
 			for (var i:int=0; i<hotspots.length; i++) {
+				hotspots[i].mark(false);
 				TweenLite.to(hotspots[i],0.1,{alpha:0,scaleX:0,scaleY:0});
 			}
 		}
 		private function showHotSpots(){
 			for (var i:int=0; i<hotspots.length; i++) {
+				hotspots[i].mark(false);
 				TweenLite.to(hotspots[i],0.3,{alpha:1,scaleX:1,scaleY:1,delay:i*0.1});
 			}
 		}
