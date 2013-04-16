@@ -12,16 +12,17 @@
 		
 		var deviceXperia:MovieClip= new DeviceXperia();
 		var counter:int=0;
-		var hotSptContainer:MovieClip;
+		
 		public function AdvertMain() {
 			stage.scaleMode = StageScaleMode.EXACT_FIT;
 			stage.align = StageAlign.TOP_LEFT;
 			NativeApplication.nativeApplication.systemIdleMode = SystemIdleMode.KEEP_AWAKE;
 			this.stage.addChild(deviceXperia);
-			hotSptContainer=MovieClip(root).hotSptContainer;
+			
 			deviceXperia.x=1024-deviceXperia.width/2;
 			deviceXperia.y=768-deviceXperia.height/2;
 			deviceXperia.addEventListener(MouseEvent.CLICK,onDeviceClick);
+			hotSpotContainer.rotationY=-30;
 			onDeviceClick(null);
 		}
 		private function onDeviceClick(e:MouseEvent):void{
