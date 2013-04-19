@@ -192,9 +192,11 @@
 		}
 		private function onWindowFocusDone() {
 			if (windowSelected==0) {
-				videoScreen.resume();
+				//videoScreen.resume();
+				videoScreen.unmute();
 			} else {
-				videoScreen.pause();
+				//videoScreen.pause();
+				videoScreen.mute();
 			}
 		}
 		private function onFmsDataReceived(e:FmsEvent):void {

@@ -10,7 +10,7 @@
 		public static const BG_ORANGE:uint = 0xf8640c;
 		public static const BG_MED_GREEN:uint =0x628990;
 		public static const BG_LIGHT_GREEN:uint = 0x48a300;
-		public static const FULL_SCREEN_MAX_WIDTH:int = 1800;
+		public static const FULL_SCREEN_MAX_WIDTH:int = 1200;
 		public static const FULL_SCREEN_MAX_HEIGHT:int = 1100;
 		public static const GALLERY_COLUMNS:int = 3;
 		public static const GALLERY_ROWS:int = 3;

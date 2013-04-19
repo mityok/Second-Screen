@@ -22,6 +22,7 @@
 		private var statsViewPlayer:StatsViewPlayer=new StatsViewPlayer();
 		private var statsViewTeam:StatsViewTeam=new StatsViewTeam();
 		private var playerNumber:TextField;
+		private var miniTitle:TLFTextField;
 		private var playerName:TLFTextField;
 		private var playerPos:TLFTextField;
 		private var imageContainer:MovieClip;
@@ -76,6 +77,7 @@
 			numFormat.bold = FontWeight.BOLD;
 			playerNumber = statsViewPlayer.playerNumber;
 			imageContainer = statsViewPlayer.imageContainer;
+			miniTitle = statsViewPlayer.miniTitle;
 			playerName = statsViewPlayer.playerName;
 			playerNameBg = statsViewPlayer.playerNameBg;
 			playerPosBg = statsViewPlayer.playerPosBg;
@@ -165,6 +167,7 @@
 			format.letterSpacing = -9;
 			playerNumber.defaultTextFormat = format;
 			playerNumber.text = "";
+			miniTitle.autoSize = TextFieldAutoSize.RIGHT;
 			playerName.autoSize = TextFieldAutoSize.RIGHT;
 			playerPos.autoSize = TextFieldAutoSize.RIGHT;
 			resetInfo();
@@ -178,11 +181,12 @@
 			monthField.text = "";
 			yearField.text = "";
 			playerPos.text = "";
+			miniTitle.text = "";
 			playerName.text = "";
 			ageField.text = "";
 			countryField.text = "";
 			loader.unloadAndStop(true);
-			playerName.alpha = playerPos.alpha = 0;
+			miniTitle.alpha = playerName.alpha = playerPos.alpha = 0;
 			playerNameBg.x = playerNameBgPosX;
 			playerPosBg.x = playerPosBgPosX;
 			distField.text = "";
@@ -320,6 +324,8 @@
 			statsViewPlayer.visible = true;
 			playerNumber.text = data.playernumber;
 			//
+			miniTitle.text = data.minititle;
+			//
 			playerName.text = data.playername;
 			//
 			playerPos.text = data.playerposition;
@@ -328,6 +334,8 @@
 			//
 			TweenLite.to(playerPos,0.2,{alpha:1,delay:0.2});
 			TweenLite.to(playerPosBg,0.2,{x:playerPosBgPosX - playerPos.width});
+			//;
+			TweenLite.to(miniTitle,0.2,{alpha:1,delay:0.2});
 			//;
 			TweenLite.to(playerName,0.2,{alpha:1,delay:0.2});
 			TweenLite.to(playerNameBg,0.2,{x:playerNameBgPosX - playerName.width});
