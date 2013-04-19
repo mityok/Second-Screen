@@ -15,14 +15,13 @@
 	public class FmsConnection extends EventDispatcher {
 		private var nc:NetConnection;
 		private var so_Content:SharedObject;
-		private var rtmplink:String = "rtmp://54.225.75.34:1935/CellcomSecondScreen_Sport";
+		private var rtmplink:String;
 
 
-		public function FmsConnection(paramObj:Object) {
+		public function FmsConnection(paramObj:Object,defaultString:String) {
 			nc = new NetConnection();
 			nc.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
-			rtmplink = paramObj["rtmplink"] || rtmplink;
-			//imageslink = paramObj["imageslink"] || imageslink;
+			rtmplink = paramObj["rtmplink"] || defaultString;
 			nc.connect(rtmplink);
 		}
 		private function netStatusHandler(event:NetStatusEvent):void {

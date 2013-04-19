@@ -7,5 +7,13 @@
 		public static const CELLCOM_LIGHT_PURPLE:uint=0xe8216f;
 		public static const IMAGES_LINK:String = "http://54.225.188.163/UserImages/";
 		public static const FAN_VIDEO_BG:String = "http://54.225.188.163/soccrefans1.flv";
+		public static const FMS_CONNECTION_SPORT:String = "rtmp://54.225.75.34:1935/CellcomSecondScreen_Sport";
+		public static const FMS_CONNECTION_VOD:String = "rtmp://54.225.75.34:1935/CellcomSecondScreen_VOD";
+		public static const FMS_CONNECTION_ADV:String = "rtmp://54.225.75.34:1935/CellcomSecondScreen_ADV";
+
+
+
+
+		
 	}
 }

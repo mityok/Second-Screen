@@ -42,7 +42,7 @@
 			NativeApplication.nativeApplication.systemIdleMode = SystemIdleMode.KEEP_AWAKE;
 			this.addChild(bg);
 			this.addChild(windowHolder);
-			fms = new FmsConnection(LoaderInfo(root.loaderInfo).parameters);
+			fms = new FmsConnection(LoaderInfo(root.loaderInfo).parameters,GlobalConst.FMS_CONNECTION_SPORT);
 			fms.addEventListener(FmsEvent.DATA_RECEIVED,onFmsDataReceived);
 			fms.addEventListener(FmsEvent.DATA_FAIL,onFmsDataFail);
 			fms.addEventListener(FmsEvent.CONNECTION_ESTABLISHED,onFmsConnectionEstablished);
