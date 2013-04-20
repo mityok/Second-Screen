@@ -37,8 +37,8 @@
 		}
 		
 		private function onStatus(item:Object):void {
-			txt.appendText("\n"+"info: "+item.info.code);
-			trace("vid: "+item.info.code);
+			//txt.appendText("\n"+"info: "+item.info.code);
+			//trace("vid: "+item.info.code);
 			if (item.info.code == "NetStream.Play.Stop") {
 				/*if (loop) {
 					ns.seek(0);
@@ -61,7 +61,7 @@
 		}
 		public function metaDataHandler(infoObject:Object):void {
 			for (var prop in infoObject) {
-				txt.appendText("\n"+prop+" : "+infoObject[prop]);
+				//txt.appendText("\n"+prop+" : "+infoObject[prop]);
 			}
 		}
 		public function setSound(volume:Number):void {

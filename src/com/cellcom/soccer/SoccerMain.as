@@ -220,8 +220,11 @@
 					case "score" :
 						bg.updateScore(e.data);
 						break;
+					case "startover" :
+						galleryScreen.reset();
+						break;
 				}
-				//types: image, stats, stats2,video, startgame, score
+				//types: image, stats, stats2,video, startgame, score, startover
 			}
 		}
 		private function resetAll(data:Object):void {
@@ -229,8 +232,8 @@
 			if (data.startgame && ! isNaN(data.startgame)) {
 				bg.resetTimer(Number(data.startgame)*60*1000);
 			}
-			galleryScreen.reset();
-
+			//galleryScreen.reset();
+			bg.updateScore({"type":"score","score":"0-0"});
 		}
 		private function onFmsDataFail(e:FmsEvent):void {
 			trace("fail");
