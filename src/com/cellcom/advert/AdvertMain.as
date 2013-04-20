@@ -9,38 +9,60 @@
 	import com.cellcom.global.GlobalConst;
 	import com.greensock.TweenLite;
 	import flash.events.Event;
+	import flash.display.Loader;
+	import flash.net.URLRequest;
+	import flash.system.ApplicationDomain;
+	import flash.system.LoaderContext;
 
 
 	public class AdvertMain extends MovieClip {
-		var stagePosX:Number = 0;
-		var deviceXperia:MovieClip= new DeviceXperia();
-		
-		var formContainerMc:MovieClip;
-		var deltaMotion:Number;
-		var openButtonMc:MovieClip
-		var closeButtonMc:MovieClip
-		var hotspotLink:Shape=new Shape();
-		var deviceController:DeviceController;
-		var linkConnectorMc:MovieClip;
-		var hotSpotContainerMc:MovieClip;
-		var dotMarker:DotMarker;
+		private var stagePosX:Number = 0;
+		private var formContainerMc:MovieClip;
+		private var deltaMotion:Number;
+		private var openButtonMc:MovieClip
+		private var closeButtonMc:MovieClip
+		private var hotspotLink:Shape=new Shape();
+		private var deviceController:DeviceController;
+		private var linkConnectorMc:MovieClip;
+		private var hotSpotContainerMc:MovieClip;
+		private var dotMarker:DotMarker;
+		private var xperiaLoader:Loader =new Loader();
+		private var galaxyLoader:Loader =new Loader();
+		private var xperiaContent:MovieClip;
+		private var galaxyContent:MovieClip;
+		private var loaderContext:LoaderContext = new LoaderContext(false, ApplicationDomain.currentDomain, null);
 		public function AdvertMain() {
+			stage.scaleMode = StageScaleMode.EXACT_FIT;
+			stage.align = StageAlign.TOP_LEFT;
+			NativeApplication.nativeApplication.systemIdleMode = SystemIdleMode.KEEP_AWAKE;
+			//
 			dotMarker=new DotMarker(GlobalConst.CELLCOM_DARK_PURPLE);
 			dotMarker.visible=false;
+			//
 			formContainerMc = formContainer;
 			openButtonMc=formContainerMc.openButton;
 			closeButtonMc=formContainerMc.closeButton;
 			linkConnectorMc=linkConnector;
 			hotSpotContainerMc=hotSpotContainer;
+			formContainerMc.x = GlobalConst.MAIN_WIDTH;
+			//
+			xperiaLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,onXperiaDone);
+			galaxyLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,onGalaxyDone);
+			xperiaLoader.load(new URLRequest("xz.swf"),loaderContext);
+		}
+		private function onXperiaDone(e:Event){
+			xperiaContent = MovieClip(xperiaLoader.content);
+			galaxyLoader.load(new URLRequest("s4.swf"),loaderContext);
+			
+		}
+		private function onGalaxyDone(e:Event){
+			galaxyContent=MovieClip(galaxyLoader.content);
+			init();
+		}
+		private function init(){
 			deviceController=new DeviceController(deviceContainer,notify,startMotion);
 			linkConnectorMc.addChild(dotMarker);						
-			stage.scaleMode = StageScaleMode.EXACT_FIT;
-			stage.align = StageAlign.TOP_LEFT;
-			NativeApplication.nativeApplication.systemIdleMode = SystemIdleMode.KEEP_AWAKE;
-			
-			
-			deviceController.setDevice(deviceXperia);
-			formContainerMc.x = GlobalConst.MAIN_WIDTH;
+			deviceController.setDevice(galaxyContent);
 			addFormEvents();
 			isClosed(true);
 		}
