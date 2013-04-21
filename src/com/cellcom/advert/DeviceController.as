@@ -19,22 +19,17 @@
 		var spot3:Shape=new Shape();
 		var totalFrames:int = 0;
 		var hotspots:Vector.<HotspotIndicator>=new Vector.<HotspotIndicator>();
-		var hotPoints:Vector.<Point>=new Vector.<Point>();
 		var inMotion:Boolean=false;
 		var notify:Function;
 		var startMotion:Function;
+		var hotspotsData:Vector.<HotspotPointData>;
 		public function DeviceController(container:MovieClip,notify:Function,startMotion:Function) {
 			this.container = container;
 			this.notify=notify;
 			this.startMotion=startMotion;
 			container.addEventListener(MouseEvent.MOUSE_DOWN,onDeviceDown);
 			container.addEventListener(MouseEvent.CLICK,onClick);
-			hotPoints.push(new Point(350,890));
-			hotPoints.push(new Point(650,150));
-			hotPoints.push(new Point(-450,300));
-			//
-			hotPoints.push(new Point(690,990));
-			hotPoints.push(new Point(400,200));
+			
 			//
 		}
 		private function onClick(e:MouseEvent){
@@ -44,21 +39,25 @@
 					hotspots[i].mark(false);
 				}
 				spot.mark(true);
-				notify(container.x+spot.x,container.y+spot.y,hotspots.indexOf(spot));
+				trace(spot);
+				trace(hotspots.indexOf(spot));
+				trace(hotspotsData);
+				notify(container.x+spot.x,container.y+spot.y,hotspotsData[hotspots.indexOf(spot)].getHotspotClip());
 			}
 		}
-		public function setDevice(device:MovieClip) {
+		public function setDevice(device:MovieClip,config:HotspotConfig,hotspotsData:Vector.<HotspotPointData>) {
 			this.device = device;
 			if (device) {
+				this.hotspotsData=hotspotsData;
 				container.removeChildren();
 				container.addChild(device);
 				device.x =  -  device.width / 2;
 				device.y =  -  device.height / 2;
 				totalFrames = device.totalFrames;
 				device.gotoAndStop(1);
-				var config:HotspotConfig=new HotspotConfig(575,device.width,device.height,20,530/2,130,600);
-				for (var i:int=0; i<hotPoints.length; i++) {
-					var spot:HotspotIndicator=new HotspotIndicator(hotPoints[i],config)
+				hotspots.length=0;
+				for (var i:int=0; i<hotspotsData.length; i++) {
+					var spot:HotspotIndicator=new HotspotIndicator(hotspotsData[i],config)
 					hotspots.push(spot);
 					container.addChild(spot);
 					turnSpot(spot,0);
