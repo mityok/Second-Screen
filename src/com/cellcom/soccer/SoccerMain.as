@@ -17,6 +17,7 @@
 	import com.cellcom.fms.FmsEvent;
 	import com.cellcom.fms.FmsConnection;
 	import com.cellcom.global.GlobalConst;
+	import flash.display.StageQuality;
 
 
 	public class SoccerMain extends Sprite implements IsFullScreenLaunchCapable {
@@ -39,6 +40,7 @@
 		public function SoccerMain() {
 			stage.scaleMode = StageScaleMode.EXACT_FIT;
 			stage.align = StageAlign.TOP_LEFT;
+			stage.quality=StageQuality.HIGH;
 			NativeApplication.nativeApplication.systemIdleMode = SystemIdleMode.KEEP_AWAKE;
 			this.addChild(bg);
 			this.addChild(windowHolder);

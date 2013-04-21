@@ -345,8 +345,13 @@
 			loader.load(new URLRequest(GlobalConst.IMAGES_LINK+data.playerimg));
 			//;
 			birthField.text = data.playerbirthdate;
-			var dates:Array = birthField.text.split("/");
-
+			var dates:Array=[0,0,0];
+			if( birthField.text.indexOf("/")>=0){
+				dates = birthField.text.split("/");
+			}else if( birthField.text.indexOf(".")>=0){
+				dates = birthField.text.split(".");
+			}
+			
 			dayField.text = dates[0];
 			monthField.text = dates[1];
 			yearField.text = dates[2].toString().substr(dates[2].length - 2,2);
@@ -356,13 +361,18 @@
 			for (var i:int=0; i<flags.length; i++) {
 				flags[i].flagCont.removeChildren();
 				var flagLoader:Loader = new Loader();
-				flagLoader.load(new URLRequest(GlobalConst.IMAGES_LINK + data.countryflag));
 				flags[i].flagCont.addChild(flagLoader);
-				flagLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,function(e:Event){
-				  LoaderInfo(e.target).loader.width=110;
-				   LoaderInfo(e.target).loader.height=110;
-				  });
+				flagLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,onLoadFlagDone);
+				flagLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,onLoadFlagError);
+				flagLoader.load(new URLRequest(GlobalConst.IMAGES_LINK + data.countryflag));
 			}
+		}
+		private function onLoadFlagError(e:Event):void {
+			trace("error flag: "+e);
+		}
+		private function onLoadFlagDone(e:Event):void {
+			LoaderInfo(e.target).loader.width=110;
+			LoaderInfo(e.target).loader.height=110;
 		}
 		private function onLoadError(e:IOErrorEvent):void {
 
