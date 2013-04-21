@@ -362,7 +362,10 @@
 		}
 		private function initiatePlayer() {
 			statsViewPlayer.visible = true;
-			
+			gamesSeason.gotoAndPlay(1);
+			frameKick.gotoAndPlay(1);
+			statsViewPlayer.dateAnim.gotoAndPlay(1);
+			statsViewPlayer.ageAnim.gotoAndPlay(1);
 			//
 			var hasMiniTile:Boolean=false;
 			if(data.minititle && data.minititle.length>0){
