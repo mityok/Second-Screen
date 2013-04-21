@@ -11,9 +11,8 @@
 		private var vid:Video;
 		private var ns:NetStream;
 		private var nc:NetConnection = new NetConnection();
-		private var loop:Boolean;
-		private var initialPlay:Boolean;
-		private var txt:TextField;
+		
+
 		private var _volume:Number = 0;
 		public function SimpleVideoPlayer(wid:int=320,hgt:int=240) {
 			var customClient = new Object();
@@ -29,27 +28,16 @@
 			vid.attachNetStream(ns);
 
 		}
-		public function setLoop(value:Boolean):void{
-			loop=value;
-		}
-		public function setText(txt:TextField):void{
-			this.txt=txt;
-		}
+		
 		
 		private function onStatus(item:Object):void {
-			//txt.appendText("\n"+"info: "+item.info.code);
-			//trace("vid: "+item.info.code);
+			
 			if (item.info.code == "NetStream.Play.Stop") {
-				/*if (loop) {
-					ns.seek(0);
-				}*/
-				play(GlobalConst.FAN_VIDEO_BG);
+				
+				play(SoccerUiConst.FAN_VIDEO_BG);
 				setSound(_volume);
 			}else if(item.info.code =="NetStream.Play.Start"){
-				/*if(!initialPlay){
-					initialPlay=true;
-					pause();
-				}*/
+				
 			}
 		}
 		public function play(url:String):void {

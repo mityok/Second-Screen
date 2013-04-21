@@ -28,6 +28,16 @@
 		private var imageContainer:MovieClip;
 		private var playerNameBg:MovieClip;
 		private var playerPosBg:MovieClip;
+		private var playerMiniBg:MovieClip;
+		
+		
+			
+		private var playerMiniNumber:TextField
+		private var playerMiniName:TLFTextField;
+		private var playerMiniNameBg:MovieClip;
+		private var playerMiniPosBg:MovieClip;
+		private var playerMiniPos:TLFTextField;
+		
 		private var birthField:TextField;
 		private var dayField:TextField;
 		private var monthField:TextField;
@@ -36,6 +46,11 @@
 		private var countryField:TLFTextField;
 		private var playerNameBgPosX:Number = 0;
 		private var playerPosBgPosX:Number = 0;
+		//
+		private var playerMiniNameBgPosX:Number = 0;
+		private var playerMiniPosBgPosX:Number = 0;
+		private var playerMiniTitleBgPosX:Number = 0;
+		//
 		private var loader:Loader=new Loader();
 		public static const IMG_WIDTH:Number = 240;
 		public static const IMG_HEIGHT:Number = 320;
@@ -71,17 +86,27 @@
 
 		private var freeKicksFieldTwo:TextField;
 		private var freeKicksFieldOne:TextField;
+		//
 		public function StatsScreen() {
 			this.mouseChildren = false;
 			this.mouseEnabled = false;
 			numFormat.bold = FontWeight.BOLD;
-			playerNumber = statsViewPlayer.playerNumber;
+			
 			imageContainer = statsViewPlayer.imageContainer;
-			miniTitle = statsViewPlayer.miniTitle;
-			playerName = statsViewPlayer.playerName;
-			playerNameBg = statsViewPlayer.playerNameBg;
-			playerPosBg = statsViewPlayer.playerPosBg;
-			playerPos = statsViewPlayer.playerPos;
+			//
+			miniTitle = statsViewPlayer.playerNameMiniTitle.miniTitle;
+			playerMiniBg = statsViewPlayer.playerNameMiniTitle.playerMiniBg;
+			playerMiniNumber = statsViewPlayer.playerNameMiniTitle.playerNumber;
+			playerMiniName = statsViewPlayer.playerNameMiniTitle.playerName;
+			playerMiniNameBg = statsViewPlayer.playerNameMiniTitle.playerNameBg;
+			playerMiniPosBg = statsViewPlayer.playerNameMiniTitle.playerPosBg;
+			playerMiniPos = statsViewPlayer.playerNameMiniTitle.playerPos;
+			//
+			playerNumber = statsViewPlayer.playerNameNoTitle.playerNumber;
+			playerName = statsViewPlayer.playerNameNoTitle.playerName;
+			playerNameBg = statsViewPlayer.playerNameNoTitle.playerNameBg;
+			playerPosBg = statsViewPlayer.playerNameNoTitle.playerPosBg;
+			playerPos = statsViewPlayer.playerNameNoTitle.playerPos;
 			//
 			goalDistance = statsViewPlayer.goalDistance;
 			distField = goalDistance.distField;
@@ -157,6 +182,11 @@
 			//
 			playerNameBgPosX = playerNameBg.x;
 			playerPosBgPosX = playerPosBg.x;
+			//
+			playerMiniNameBgPosX = playerMiniNameBg.x;
+			playerMiniPosBgPosX = playerMiniPosBg.x;
+			playerMiniTitleBgPosX = playerMiniBg.x;
+			//
 			imageContainer.addChild(loader);
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE,onLoadDone);
 			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,onLoadError);
@@ -165,11 +195,14 @@
 			this.addChild(statsViewTeam);
 			var format:TextFormat=new TextFormat();
 			format.letterSpacing = -9;
-			playerNumber.defaultTextFormat = format;
-			playerNumber.text = "";
+			playerMiniNumber.defaultTextFormat =playerNumber.defaultTextFormat = format;
+			playerMiniNumber.text =playerNumber.text= "";
+
 			miniTitle.autoSize = TextFieldAutoSize.RIGHT;
 			playerName.autoSize = TextFieldAutoSize.RIGHT;
 			playerPos.autoSize = TextFieldAutoSize.RIGHT;
+			playerMiniName.autoSize = TextFieldAutoSize.RIGHT;
+			playerMiniPos.autoSize = TextFieldAutoSize.RIGHT;
 			resetInfo();
 		}
 		private function resetInfo() {
@@ -181,14 +214,21 @@
 			monthField.text = "";
 			yearField.text = "";
 			playerPos.text = "";
+			playerMiniPos.text = "";
 			miniTitle.text = "";
 			playerName.text = "";
+			playerMiniName.text = "";
 			ageField.text = "";
 			countryField.text = "";
 			loader.unloadAndStop(true);
-			miniTitle.alpha = playerName.alpha = playerPos.alpha = 0;
+			miniTitle.alpha = playerName.alpha = playerPos.alpha =playerMiniName.alpha = playerMiniPos.alpha = 0;
 			playerNameBg.x = playerNameBgPosX;
 			playerPosBg.x = playerPosBgPosX;
+			//
+			playerMiniBg.x=playerMiniTitleBgPosX;
+			playerMiniNameBg.x = playerMiniNameBgPosX;
+			playerMiniPosBg.x = playerMiniPosBgPosX;
+			//
 			distField.text = "";
 			goalDistance.visible = false;
 			goalChance.visible = false;
@@ -322,23 +362,38 @@
 		}
 		private function initiatePlayer() {
 			statsViewPlayer.visible = true;
-			playerNumber.text = data.playernumber;
+			
 			//
-			miniTitle.text = data.minititle;
+			var hasMiniTile:Boolean=false;
+			if(data.minititle && data.minititle.length>0){
+				hasMiniTile=true;
+				miniTitle.text = data.minititle;
+				playerMiniName.text = data.playername;
+				playerMiniNumber.text = data.playernumber;
+				playerMiniPos.text = data.playerposition;
+				TweenLite.to(playerMiniPos,0.2,{alpha:1,delay:0.2});
+				TweenLite.to(playerMiniPosBg,0.2,{x:playerMiniPosBgPosX - playerMiniPos.width});
+				TweenLite.to(miniTitle,0.2,{alpha:1,delay:0.2});
+				TweenLite.to(playerMiniName,0.2,{alpha:1,delay:0.2});
+				TweenLite.to(playerMiniNameBg,0.2,{x:playerMiniNameBgPosX - playerMiniName.width});
+				TweenLite.to(playerMiniBg,0.2,{x:playerMiniTitleBgPosX - miniTitle.width});
+			}else{
+				playerName.text = data.playername;
+				playerNumber.text = data.playernumber;
+				playerPos.text = data.playerposition;
+				TweenLite.to(playerPos,0.2,{alpha:1,delay:0.2});
+				TweenLite.to(playerPosBg,0.2,{x:playerPosBgPosX - playerPos.width});
+				TweenLite.to(playerName,0.2,{alpha:1,delay:0.2});
+				TweenLite.to(playerNameBg,0.2,{x:playerNameBgPosX - playerName.width});
+			}
+			statsViewPlayer.playerNameMiniTitle.visible = hasMiniTile;
+			statsViewPlayer.playerNameNoTitle.visible = !hasMiniTile;
 			//
-			playerName.text = data.playername;
-			//
-			playerPos.text = data.playerposition;
+			
 			//
 			seasonField.text = data.playertotalgoals;
 			//
-			TweenLite.to(playerPos,0.2,{alpha:1,delay:0.2});
-			TweenLite.to(playerPosBg,0.2,{x:playerPosBgPosX - playerPos.width});
-			//;
-			TweenLite.to(miniTitle,0.2,{alpha:1,delay:0.2});
-			//;
-			TweenLite.to(playerName,0.2,{alpha:1,delay:0.2});
-			TweenLite.to(playerNameBg,0.2,{x:playerNameBgPosX - playerName.width});
+			
 			//;
 			loader.unloadAndStop(true);
 			loader.alpha = 0;

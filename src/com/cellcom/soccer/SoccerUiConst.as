@@ -15,5 +15,6 @@
 		public static const GALLERY_COLUMNS:int = 3;
 		public static const GALLERY_ROWS:int = 3;
 		public static const GALLERY_SPACING:int = 20;
+		public static const FAN_VIDEO_BG:String = "vids/croud_1_-_this_is_the_default_clip_fix.flv";
 	}
 }
