@@ -10,6 +10,7 @@
 	import flash.display.LoaderInfo;
 	import com.greensock.TweenLite;
 	import fl.text.TLFTextField;
+	import flash.display.StageQuality;
 
 	public class TheVoiceMain extends MovieClip {
 
@@ -22,6 +23,7 @@
 		public function TheVoiceMain() {
 			stage.scaleMode = StageScaleMode.EXACT_FIT;
 			stage.align = StageAlign.TOP_LEFT;
+			stage.quality=StageQuality.HIGH;
 			NativeApplication.nativeApplication.systemIdleMode = SystemIdleMode.KEEP_AWAKE;
 			notificationClipMc = notificationClip;
 			notificationClipMc.mouseChildren = false;

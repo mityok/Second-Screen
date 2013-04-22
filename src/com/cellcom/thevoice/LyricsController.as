@@ -12,7 +12,7 @@
 		private var lyrics:LyricsVideoPlayer;
 		private var video:DisplayObject;
 		private var didYouKnowTextTlf:TLFTextField;
-		private var timer:Timer = new Timer(100,0);
+		
 		private var didyouknowtext:String;
 		private var counter:int = 0;
 		public function LyricsController(container:MovieClip) {
@@ -21,40 +21,26 @@
 			video = lyrics.getVideo();
 			container.addChild(video);
 			didYouKnowTextTlf = container.didYouKnowText;
-			timer.addEventListener(TimerEvent.TIMER,onTimerTick);
+			
 		}
 		public function setData(data:Object):void {
 			if (data.type == "lyrics") {
-
 				lyrics.play(data.lyricsvideolink);
-				timer.stop();
 				didYouKnowTextTlf.text = "";
 				video.visible = true;
 			} else if ("didyouknow") {
 				video.visible = false;
-				didyouknowtext = data.didyouknowtext;
-				animateText();
+				
+				didYouKnowTextTlf.text= data.didyouknowtext;
+				
 			}
 		}
-		private function animateText() {
-			counter = 0;
-			timer.start();
-
-		}
-		private function onTimerTick(e:TimerEvent) {
-			counter++;
-			if (counter>=didyouknowtext.length) {
-				timer.stop();
-				return;
-			}
-			didYouKnowTextTlf.text = didyouknowtext.substring(0,counter);
-
-		}
+		
 		public function reset() {
-			counter = 0;
+			
 			lyrics.stop();
 			video.visible = false;
-			timer.stop();
+			
 		}
 	}
 }
