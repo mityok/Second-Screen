@@ -296,6 +296,10 @@
 		}
 		private function initiateStateTwo() {
 			statsViewTeam.visible = true;
+			statsViewTeam.ballControl.gotoAndPlay(1);
+			statsViewTeam.hookKick.gotoAndPlay(1);
+			statsViewTeam.offside.gotoAndPlay(1);
+			statsViewTeam.gateKicks.gotoAndPlay(1);
 			var percentcontrol:Array = data.percentcontrol.toString().split(",");
 			var percentcontrolOne:int = int(percentcontrol[0]);
 			var percentcontrolTwo:int = int(percentcontrol[1]);
@@ -319,11 +323,17 @@
 				for (j=0; j<foulsOne; j++) {
 					card=new FaulCard();
 					card.x =  -  j * 10;
+					card.alpha=0;
+					card.scaleX=card.scaleY=1.5;
+					TweenLite.to(card,0.1,{delay:j*0.1,alpha:1,scaleX:1,scaleY:1});
 					card.gotoAndStop(i+1);
 					faulsCardHolderOne[i].addChild(card);
 				}
 				for (j=0; j<foulsTwo; j++) {
 					card=new FaulCard();
+					card.alpha=0;
+					card.scaleX=card.scaleY=1.5;
+					TweenLite.to(card,0.1,{delay:j*0.1,alpha:1,scaleX:1,scaleY:1});
 					card.x = j * 10;
 					card.gotoAndStop(i+1);
 					faulsCardHolderTwo[i].addChild(card);
@@ -366,6 +376,7 @@
 			frameKick.gotoAndPlay(1);
 			statsViewPlayer.dateAnim.gotoAndPlay(1);
 			statsViewPlayer.ageAnim.gotoAndPlay(1);
+			statsViewPlayer.seasonGoal.gotoAndPlay(1);
 			//
 			var hasMiniTile:Boolean=false;
 			if(data.minititle && data.minititle.length>0){
